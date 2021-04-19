@@ -22,10 +22,9 @@ class UsersController extends Controller
         return view('users.create');
     }
 
-    public function show(User $user)
-    {
-//        $user->gravater('140');
-        return view('users.show', compact('user'));
+    public  function show(User $user){
+        $gravater = $user->gravater();
+        return view('users.show',compact('user','gravater'));
     }
 
     public function store(Request $request)
@@ -45,10 +44,10 @@ class UsersController extends Controller
         return redirect()->route('users.show', [$user]);
     }
 
-    public function edit(User $user)
-    {
-        $this->authorize('update',$user);
-        return view('users.edit', compact('user'));
+
+    public function edit(User $user){
+        $gravater = $user->gravater();
+        return view('users.edit',compact('user','gravater'));
     }
 
     public function update(User $user, Request $request)
