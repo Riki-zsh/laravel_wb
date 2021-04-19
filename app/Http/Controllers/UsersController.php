@@ -12,7 +12,10 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'create,store']
+            'except' => ['show', 'create', 'store']
+        ]);
+        $this->middleware('guest', [
+            'only' => ['create']
         ]);
     }
 
@@ -47,6 +50,7 @@ class UsersController extends Controller
 
     public function edit(User $user){
         $gravater = $user->gravater();
+        $this->authorize('update',$user);
         return view('users.edit',compact('user','gravater'));
     }
 
