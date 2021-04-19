@@ -12,11 +12,17 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'store']
+            'except' => ['show', 'create', 'store', 'index']
         ]);
         $this->middleware('guest', [
             'only' => ['create']
         ]);
+    }
+
+    public function index()
+    {
+        $users = User::paginate(6);
+        return view('users.index', compact('users'));
     }
 
     //
@@ -25,9 +31,9 @@ class UsersController extends Controller
         return view('users.create');
     }
 
-    public  function show(User $user){
-        $gravater = $user->gravater();
-        return view('users.show',compact('user','gravater'));
+    public function show(User $user)
+    {
+        return view('users.show', compact('user'));
     }
 
     public function store(Request $request)
@@ -48,15 +54,15 @@ class UsersController extends Controller
     }
 
 
-    public function edit(User $user){
-        $gravater = $user->gravater();
-        $this->authorize('update',$user);
-        return view('users.edit',compact('user','gravater'));
+    public function edit(User $user)
+    {
+        $this->authorize('update', $user);
+        return view('users.edit', compact('user'));
     }
 
     public function update(User $user, Request $request)
     {
-        $this->authorize('update',$user);
+        $this->authorize('update', $user);
         $this->validate($request, [
             'name' => 'required | max:50',
             'password' => 'nullable | confirmed|min:6'

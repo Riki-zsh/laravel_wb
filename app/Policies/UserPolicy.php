@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicies
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -25,7 +25,8 @@ class UserPolicies
      * @param User $user 需要进行授权的实例
      * @return bool
      */
-    public function update(User $currentUser,User $user){
-        return $currentUser->id === $user->id;
+    public function update(User $currentUser, User $user)
+    {
+        return $currentUser->id == $user->id;
     }
 }

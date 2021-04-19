@@ -13,7 +13,7 @@
 
                 <div class="gravatar_edit">
                     <a href="http://gravatar.com/emails" target="_blank">
-                        <img src="{{ $gravater }}" alt="{{ $user->name }}" class="gravatar"/>
+                        <img src="{{ $user->gravater() }}" alt="{{ $user->name }}" class="gravatar"/>
                     </a>
                 </div>
 
