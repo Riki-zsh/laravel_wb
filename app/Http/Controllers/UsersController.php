@@ -14,8 +14,8 @@ class UsersController extends Controller
     }
 
     public  function show(User $user){
-//        $user->gravater('140');
-        return view('users.show',compact('user'));
+        $gravater = $user->gravater();
+        return view('users.show',compact('user','gravater'));
     }
 
     public function store(Request $request){
@@ -35,7 +35,8 @@ class UsersController extends Controller
     }
 
     public function edit(User $user){
-        return view('users.edit',compact('user'));
+        $gravater = $user->gravater();
+        return view('users.edit',compact('user','gravater'));
     }
 
     public function update(User $user,Request $request){
