@@ -42,9 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function boot(){
+    public static function boot()
+    {
         parent::boot();
-        static::creating(function ($user){
+        static::creating(function ($user) {
             $user->activation_token = \Illuminate\Support\Str::random(10);
         });
     }
@@ -54,5 +55,10 @@ class User extends Authenticatable
 //        $hash = md5(strtolower(trim($this->attributes['email'])));
 //        return "http://www.gravatar.com/avatar/$hash?s=$size";
         return "https://gravatar.zeruns.tech/avatar/";
+    }
+
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
     }
 }
