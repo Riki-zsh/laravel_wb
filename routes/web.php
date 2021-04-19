@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 /**
+ * StaticPagesController
  * get()传递了两个参数，第一个参数指明了URL 第二个参数指明了处理该 URL 的控制器动作
  * get 表明这个路由将会响应 GET 请求，并将请求映射到指定的控制器动作上
  */
@@ -22,6 +23,7 @@ Route::get('/about','StaticPagesController@about')->name('about');
 
 Route::get('signup','UsersController@create')->name('signup');
 
+//UsersController
 Route::resource('users','UsersController');
 //resourse等同于以下方法
 //Route::get('/users', 'UsersController@index')->name('users.index');
@@ -32,7 +34,14 @@ Route::resource('users','UsersController');
 //Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
 //Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
 
+//SessionsController
 Route::get('login','SessionsController@create')->name('login');
 Route::post('login','SessionsController@store')->name('login');
 Route::delete('logout','SessionsController@destory')->name('logout');
 Route::get('signup/confirm/{token}','UsersController@confirmEmail')->name('confirm_email');
+
+//PasswordController
+Route::get('password/reset',  'PasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email',  'PasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}',  'PasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset',  'PasswordController@reset')->name('password.update');
