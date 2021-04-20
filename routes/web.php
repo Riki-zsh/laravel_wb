@@ -25,6 +25,8 @@ Route::get('signup', 'UsersController@create')->name('signup');
 
 //UsersController
 Route::resource('users', 'UsersController');
+Route::get('/users/{user}/followings','UsersController@followings')->name('users.followings');
+Route::get('users/{user}/followers','UsersController@followers')->name('users.followers');
 //resourse等同于以下方法
 //Route::get('/users', 'UsersController@index')->name('users.index');
 //Route::get('/users/create', 'UsersController@create')->name('users.create');
@@ -48,3 +50,7 @@ Route::post('password/reset', 'PasswordController@reset')->name('password.update
 
 //StatusController
 Route::resource('statuses', 'StatusesController', ['only' => ['store', 'destroy']]);
+
+//FollowersController
+Route::post('/users/followers/{user}','FollowersController@store')->name('followers.store');
+Route::delete('/users/followers/{user}','FollowersController@destroy')->name('followers.destroy');
